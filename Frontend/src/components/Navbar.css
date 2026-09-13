@@ -263,8 +263,9 @@
     margin: 4px 0 8px;
   }
   .app-nav-right { order: 2; }
-  .app-year-label { display: none; }
-  .app-nav-year-switcher { padding: 5px 8px; }
+  /* The archive selector is available on larger screens; it is intentionally
+     removed on phones to keep the header focused and compact. */
+  .app-nav-year-switcher { display: none; }
 }
 
 @media (max-width: 380px) {
