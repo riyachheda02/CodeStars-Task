@@ -4,8 +4,8 @@
   --text-primary: #ffffff;
   --text-secondary: #8e8e93;
   --text-muted: #55555c;
-  --accent-orange: #ffa200;
-  --accent-orange-glow: rgba(255, 55, 0, 0.25);
+  --accent-orange: #ffa600;
+  --accent-orange-glow: rgba(255, 166, 0, 0.25);
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-hover: rgba(255, 255, 255, 0.2);
 
@@ -39,6 +39,7 @@ html, body {
   color: var(--text-primary);
   overflow-x: hidden;
   scroll-behavior: smooth;
+  font-family: var(--font-main);
 }
 
 #root {
@@ -77,10 +78,10 @@ button {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff3700;
+  background: #ffa600;
 }
 
 ::selection {
-  background: #ff3700;
-  color: #ffffff;
+  background: #ffa600;
+  color: #080808;
 }

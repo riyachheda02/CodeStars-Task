@@ -2,13 +2,15 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { photosByYear, heroPhotos } from '../constant/photos';
 import codestarsLogo from '../assets/djs_codestarsLogo.jpeg';
 import Footer from '../components/Footer';
+import './Home.css';
 
-export default function Home() {
+export default function Home({ onNavigate }) {
   const [selectedYear, setSelectedYear] = useState('2026');
   const [activeCards, setActiveCards] = useState([]);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0, visible: false });
   const [activeGalleryFilter, setActiveGalleryFilter] = useState('ALL');
   const [selectedGalleryPhoto, setSelectedGalleryPhoto] = useState(null);
+  const [expandedAnnouncements, setExpandedAnnouncements] = useState({ 'ann-1': true, 'ann-2': true });
 
   const heroRef = useRef(null);
   const photoIndexRef = useRef(0);
@@ -21,6 +23,14 @@ export default function Home() {
     setSelectedYear(year);
     photoIndexRef.current = 0;
     setActiveCards([]);
+  };
+
+  // Toggle announcement expansion
+  const toggleAnnouncement = (id) => {
+    setExpandedAnnouncements((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
   };
 
   // Reset inactivity countdown (photos disappear after 7s of stopped hover)
@@ -130,6 +140,73 @@ export default function Home() {
     };
   }, []);
 
+  const announcementsData = [
+    {
+      id: 'ann-1',
+      date: { month: 'MAR', day: '24' },
+      type: 'UPDATE',
+      title: 'Schedule Update: Introduction to CodeStars Rescheduled!',
+      shortDesc: 'Important Update! The Introduction to CodeStars session has been rescheduled to 2nd October 2025 at 11:00 PM. Mark your calendars and don\'t miss this exciting opportunity to learn about CodeStars and the amazing roles we\'re recruiting for!',
+      fullDesc: 'We apologize for any inconvenience caused by this schedule change. The new timing will allow more students to attend and learn about the exciting opportunities at CodeStars. 📅 New Date: 2nd October 2025 🕚 New Time: 11:00 PM All other events remain as scheduled. We look forward to seeing you there! ',
+      linkUrl: '#experience',
+      
+    },
+    {
+      id: 'ann-2',
+      date: { month: 'OCT', day: '01' },
+      type: 'EVENT',
+      title: '🚀 Codestars is Recruiting! 🌟',
+      shortDesc: 'Want to be a part of the most exciting Competitive Programming club on campus? This is your chance! Apply now for Co-Committee positions across Technical, Tech-Editorial, Creatives, Marketing, and Events roles.',
+      fullDesc: `We're not just about code—we're about building a community where logic meets creativity. From CP practice sessions to coding contests and fun collab events, Codestars does it all!
+
+As a Co-committee member, you'll:
+💻 Plan events & contests
+🤝 Connect with coding enthusiasts
+🌟 Gain leadership experience
+
+We are organizing an Intro Session on 2nd October 2025 at 11:00 PM and Mock Contest on 3rd October 2025— the perfect start to your Codestars journey!
+
+📋 Available Roles:
+• Technical
+• Tech-Editorial
+• Creatives
+• Marketing
+• Events
+
+⏳ Application Deadline: 4th October 2025, 11:59 PM
+🎓 Eligibility: Open to Second Year students for Co-Comm positions. Intro Session and Mock Contest are open to all students.
+📍 Venue: DJ Sanghvi College of Engineering
+
+🗓️ Event Timeline:
+• Oct 2 @ 11:00 PM — Introduction to CodeStars
+• Oct 3 @ 4:00 PM - 6:00 PM — Mock Contest
+• Oct 4 @ 11:59 PM — Application Deadline
+• Oct 6 @ 9:00 AM - 3:00 PM — Co-Comm Interviews Day 1
+• Oct 7 @ 9:00 AM - 3:00 PM — Co-Comm Interviews Day 2`,
+      linkText: 'Contest Page / Application Form',
+      linkUrl: 'https://forms.gle/zSQRxwb3vysxrAqS8',
+    },
+    {
+      id: 'ann-3',
+      date: { month: 'OCT', day: '03' },
+      type: 'EVENT',
+      title: '🚀 Mock Contest - Exclusively for 2nd Years!',
+      shortDesc: "Greetings, 2nd Years! Welcome to Codestars! We're excited to announce a Mock Contest exclusively for you. Test and sharpen your Competitive Programming skills. New to CP? Don't worry—we've got you covered! You can learn while you compete.",
+      fullDesc: `🔹 Exciting problems to test and sharpen your Competitive Programming skills.
+🔹 New to CP? Don't worry—we've got you covered! You can learn while you compete.
+⚡ Come join us, challenge yourself, and kickstart your CP journey with Codestars!
+
+🎓 Eligibility: Exclusively for Second Year students
+📍 Venue: IT Department, DJ Sanghvi College of Engineering
+
+🗓️ Event Timeline:
+• Oct 3 @ 4:00 PM — Contest Begins (2 hours to solve programming problems)
+• Oct 3 @ 6:00 PM — Contest Ends (Results announced)`,
+      linkText: 'Codeforces Contest Page',
+      linkUrl: 'https://codeforces.com/group/g6lZJwfgjF',
+    },
+  ];
+
   const stats = [
     { number: '15+', label: 'Contests & Hackathons' },
     { number: '500+', label: 'Community Coders' },
@@ -190,19 +267,21 @@ export default function Home() {
               className="nav-item"
               onClick={(e) => {
                 e.preventDefault();
-                scrollTo('experience');
+                if (onNavigate) {
+                  onNavigate('events');
+                } else {
+                  window.location.hash = '#events';
+                }
               }}
             >
               Events
             </a>
 
             <a
-              href="#code-uncode"
+              href="https://codeuncode.djscodestars.in/"
               className="nav-item"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo('about');
-              }}
+              target="_blank"
+              rel="noreferrer"
             >
               Code UnCode
             </a>
@@ -249,7 +328,7 @@ export default function Home() {
 
           {/* Top Right: Year Switcher */}
           <div className="nav-year-switcher-right">
-            <span className="year-label">MEMORIES</span>
+            <span className="year-label">ARCHIVE</span>
             <div className="year-toggle-group">
               <button
                 type="button"
@@ -314,71 +393,103 @@ export default function Home() {
         {/* Hero Bottom Bar (Centered Tagline) */}
         <div className="hero-bottom-bar-clean">
           <p className="hero-tagline">
-           programming club fostering coding, learning, and innovation among students.
+            COMMUNITY OF BUILDERS & COMPETITIVE PROGRAMMERS, TELLING STORIES THROUGH CODE.
           </p>
         </div>
       </section>
 
       {/* ================= MAIN CONTENT ================= */}
       <main>
-        {/* ABOUT SECTION */}
-        <section id="about" className="content-section about-section">
+        {/* ================= LATEST ANNOUNCEMENTS SECTION (Right after Hero) ================= */}
+        <section id="announcements" className="content-section announcements-section">
           <div className="section-container">
             <div className="section-header">
-              <span className="section-eyebrow">ABOUT THE COMMITTEE</span>
-              <h2 className="section-title">Where Passion Meets Algorithmic Excellence</h2>
+              <span className="section-eyebrow">Stay updated with the latest news, events, and achievements from DJS CodeStars</span>
+              <h2 className="section-title">Latest Announcements</h2>
             </div>
 
-            <div className="about-grid">
-              <div className="about-text-card">
-                <p className="about-lead">
-                  <strong>DJS CodeStars</strong> is the premier coding and competitive programming community
-                  at Dwarkadas J. Sanghvi College of Engineering (DJSCE).
-                </p>
-                <p className="about-description">
-                  We empower aspiring software engineers, competitive programmers, and algorithmic thinkers through
-                  rigorous mock contests, regionals, hands-on masterclasses, and national hackathons.
-                  From beginner-friendly workshops to preparing top teams for ICPC and prestigious coding showdowns,
-                  we build the next generation of tech leaders.
-                </p>
-              </div>
+            <div className="announcements-list">
+              {announcementsData.map((ann) => {
+                const isExpanded = !!expandedAnnouncements[ann.id];
+                const isUpdate = ann.type === 'UPDATE';
 
-              <div className="stats-grid">
-                {stats.map((stat, idx) => (
-                  <div key={idx} className="stat-card">
-                    <span className="stat-number">{stat.number}</span>
-                    <span className="stat-label">{stat.label}</span>
+                return (
+                  <div key={ann.id} className="announcement-card">
+                    {/* Left Square Date Box */}
+                    <div className="announcement-date-box">
+                      <span className="date-month">{ann.date.month}</span>
+                      <span className="date-day">{ann.date.day}</span>
+                    </div>
+
+                    {/* Main Content Area */}
+                    <div className="announcement-body">
+                      <div className="announcement-header-row">
+                        <h3 className="announcement-heading">{ann.title}</h3>
+                        {/* Corner Status Badge (UPDATE = Yellow, EVENT = Blue) */}
+                        <span
+                          className={`announcement-type-badge ${
+                            isUpdate ? 'badge-update-yellow' : 'badge-event-blue'
+                          }`}
+                        >
+                          {ann.type}
+                        </span>
+                      </div>
+
+                      <p className="announcement-preview">{ann.shortDesc}</p>
+
+                      {/* Expandable Content when Read More is Clicked */}
+                      {isExpanded && (
+                        <div className="announcement-expanded-content">
+                          <p className="announcement-full-desc">{ann.fullDesc}</p>
+                          {ann.linkText && (
+                            <a
+                              href={ann.linkUrl}
+                              className="announcement-action-btn"
+                              target={ann.linkUrl.startsWith('http') ? '_blank' : undefined}
+                              rel={ann.linkUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
+                              onClick={(e) => {
+                                if (ann.linkUrl.startsWith('#')) {
+                                  e.preventDefault();
+                                  scrollTo(ann.linkUrl.substring(1));
+                                }
+                              }}
+                            >
+                              {ann.linkText} →
+                            </a>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Read More / Read Less Toggle Button */}
+                      <button
+                        type="button"
+                        className="read-more-btn"
+                        onClick={() => toggleAnnouncement(ann.id)}
+                      >
+                        <span>{isExpanded ? 'Read less' : 'Read more'}</span>
+                        <svg
+                          className={`read-more-icon ${isExpanded ? 'rotate-180' : ''}`}
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        {/* EXPERIENCE / EVENTS SECTION */}
-        <section id="experience" className="content-section experience-section">
-          <div className="section-container">
-            <div className="section-header">
-              <span className="section-eyebrow">TRACK RECORD</span>
-              <h2 className="section-title">Contests & Milestones</h2>
-            </div>
-
-            <div className="experience-list">
-              {experiences.map((item, idx) => (
-                <div key={idx} className="experience-item">
-                  <div className="experience-meta">
-                    <span className="exp-year">{item.year}</span>
-                    <span className="exp-tag">{item.tag}</span>
-                  </div>
-                  <div className="experience-content">
-                    <h3 className="exp-title">{item.title}</h3>
-                    <p className="exp-desc">{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* 
 
         {/* GALLERY SECTION */}
         <section id="gallery" className="content-section gallery-section">
@@ -437,7 +548,7 @@ export default function Home() {
       </main>
 
       {/* ================= FOOTER (Kept where it is) ================= */}
-      <Footer />
+      <Footer onNavigate={onNavigate} />
     </div>
   );
 }

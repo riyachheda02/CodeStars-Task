@@ -49,7 +49,7 @@ export default function Navbar({ selectedYear, onYearChange }) {
         </a>
 
         <a
-          href="#code-uncode"
+          href="https://codeuncode.djscodestars.in/"
           className="nav-item"
           onClick={(e) => {
             e.preventDefault();
