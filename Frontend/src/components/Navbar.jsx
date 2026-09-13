@@ -1,106 +1,131 @@
 import React from 'react';
+import { ArrowRight } from 'lucide-react';
 import codestarsLogo from '../assets/djs_codestarsLogo.jpeg';
+import './Navbar.css';
 
-export default function Navbar({ selectedYear, onYearChange }) {
-  const scrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+export default function Navbar({
+  currentRoute = 'home',
+  onNavigate,
+  selectedYear = '2026',
+  onYearChange,
+}) {
+  const handleNavClick = (e, target) => {
+    e.preventDefault();
+    if (onNavigate) {
+      onNavigate(target);
+    } else {
+      window.location.hash = target === 'home' ? '#' : `#${target}`;
     }
   };
 
   return (
-    <header className="hero-nav">
-      {/* Top Left: Year Switcher */}
-      <div className="nav-year-switcher">
-        <span className="year-label">ARCHIVE</span>
-        <div className="year-toggle-group">
-          <button
-            type="button"
-            className={`year-btn ${selectedYear === '2026' ? 'active' : ''}`}
-            onClick={() => onYearChange('2026')}
-            title="Switch to 2026 photos"
-          >
-            2026
-          </button>
-          <span className="year-divider">/</span>
-          <button
-            type="button"
-            className={`year-btn ${selectedYear === '2025' ? 'active' : ''}`}
-            onClick={() => onYearChange('2025')}
-            title="Switch to 2025 photos"
-          >
-            2025
-          </button>
-        </div>
+    <header className="app-navbar-sticky">
+      {/* Left: Brand CODESTARS */}
+      <div className="app-nav-brand">
+        <a
+          href="#home"
+          onClick={(e) => handleNavClick(e, 'home')}
+          title="DJS CodeStars Home"
+        >
+          CODESTARS
+        </a>
       </div>
 
-      {/* Center Nav: Events, Code UnCode, [Circular CodeStars Logo], Resources, Team */}
-      <nav className="nav-center-menu">
+      {/* Center: Full Menu with Circular Logo */}
+      <nav className="app-nav-center" aria-label="Main Navigation">
+        <a
+          href="#home"
+          className={`app-nav-link ${currentRoute === 'home' ? 'active' : ''}`}
+          onClick={(e) => handleNavClick(e, 'home')}
+        >
+          Home
+        </a>
+
         <a
           href="#events"
-          className="nav-item"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollTo('experience');
-          }}
+          className={`app-nav-link ${currentRoute === 'events' ? 'active' : ''}`}
+          onClick={(e) => handleNavClick(e, 'events')}
         >
           Events
         </a>
 
         <a
           href="https://codeuncode.djscodestars.in/"
-          className="nav-item"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollTo('about');
-          }}
+          className="app-nav-link"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           Code UnCode
         </a>
 
-        {/* Circular Logo of CodeStars */}
+        {/* Circular CodeStars Logo in center */}
         <a
-          href="#hero"
-          className="nav-logo-circle"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollTo('hero');
-          }}
-          title="DJS CodeStars"
+          href="#home"
+          className="app-nav-logo-circle"
+          onClick={(e) => handleNavClick(e, 'home')}
+          title="DJS CodeStars Home"
         >
           <img
             src={codestarsLogo}
             alt="DJS CodeStars Logo"
-            className="nav-logo-img"
+            className="app-nav-logo-img"
           />
         </a>
 
         <a
           href="#resources"
-          className="nav-item"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollTo('gallery');
-          }}
+          className={`app-nav-link ${currentRoute === 'resources' ? 'active' : ''}`}
+          onClick={(e) => handleNavClick(e, 'resources')}
         >
           Resources
         </a>
 
         <a
           href="#team"
-          className="nav-item"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollTo('about');
-          }}
+          className={`app-nav-link ${currentRoute === 'team' ? 'active' : ''}`}
+          onClick={(e) => handleNavClick(e, 'team')}
         >
           Team
         </a>
       </nav>
 
-      {/* Top Right Spacer to balance the layout */}
-      <div className="nav-right-spacer" />
+      {/* Right: Year Switcher on Home / Back to Home on other pages */}
+      <div className="app-nav-right">
+        {currentRoute === 'home' ? (
+          <div className="app-nav-year-switcher">
+            <span className="app-year-label">ARCHIVE</span>
+            <div className="app-year-toggle-group">
+              <button
+                type="button"
+                className={`app-year-btn ${selectedYear === '2026' ? 'active' : ''}`}
+                onClick={() => onYearChange && onYearChange('2026')}
+                title="Switch to 2026 photos"
+              >
+                2026
+              </button>
+              <span className="app-year-divider">/</span>
+              <button
+                type="button"
+                className={`app-year-btn ${selectedYear === '2025' ? 'active' : ''}`}
+                onClick={() => onYearChange && onYearChange('2025')}
+                title="Switch to 2025 photos"
+              >
+                2025
+              </button>
+            </div>
+          </div>
+        ) : (
+          <button
+            type="button"
+            className="app-nav-back-btn"
+            onClick={(e) => handleNavClick(e, 'home')}
+            title="Return to Home"
+          >
+            <ArrowRight size={13} style={{ transform: 'rotate(180deg)' }} />
+            <span>Back to Home</span>
+          </button>
+        )}
+      </div>
     </header>
   );
 }

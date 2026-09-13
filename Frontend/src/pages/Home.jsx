@@ -4,13 +4,15 @@ import codestarsLogo from '../assets/djs_codestarsLogo.jpeg';
 import Footer from '../components/Footer';
 import './Home.css';
 
-export default function Home({ onNavigate }) {
-  const [selectedYear, setSelectedYear] = useState('2026');
+export default function Home({ onNavigate, selectedYear: propYear, onYearChange }) {
+  const [internalYear, setInternalYear] = useState('2026');
+  const selectedYear = propYear || internalYear;
+  const setSelectedYear = onYearChange || setInternalYear;
   const [activeCards, setActiveCards] = useState([]);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0, visible: false });
   const [activeGalleryFilter, setActiveGalleryFilter] = useState('ALL');
   const [selectedGalleryPhoto, setSelectedGalleryPhoto] = useState(null);
-  const [expandedAnnouncements, setExpandedAnnouncements] = useState({ 'ann-1': true, 'ann-2': true });
+  const [expandedAnnouncements, setExpandedAnnouncements] = useState({});
 
   const heroRef = useRef(null);
   const photoIndexRef = useRef(0);
@@ -251,106 +253,6 @@ We are organizing an Intro Session on 2nd October 2025 at 11:00 PM and Mock Cont
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Top Navigation: Left = CODESTARS, Center = Menu with Circular Logo, Right = Year Switcher */}
-        <header className="hero-nav">
-          {/* Top Left: CODESTARS */}
-          <div className="nav-brand">
-            <a href="#hero" onClick={(e) => { e.preventDefault(); scrollTo('hero'); }}>
-              CODESTARS
-            </a>
-          </div>
-
-          {/* Center Nav: Events, Code UnCode, [Circular CodeStars Logo], Resources, Team */}
-          <nav className="nav-center-menu">
-            <a
-              href="#events"
-              className="nav-item"
-              onClick={(e) => {
-                e.preventDefault();
-                if (onNavigate) {
-                  onNavigate('events');
-                } else {
-                  window.location.hash = '#events';
-                }
-              }}
-            >
-              Events
-            </a>
-
-            <a
-              href="https://codeuncode.djscodestars.in/"
-              className="nav-item"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Code UnCode
-            </a>
-
-            {/* Circular Logo of CodeStars */}
-            <a
-              href="#hero"
-              className="nav-logo-circle"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo('hero');
-              }}
-              title="DJS CodeStars"
-            >
-              <img
-                src={codestarsLogo}
-                alt="DJS CodeStars Logo"
-                className="nav-logo-img"
-              />
-            </a>
-
-            <a
-              href="#resources"
-              className="nav-item"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo('gallery');
-              }}
-            >
-              Resources
-            </a>
-
-            <a
-              href="#team"
-              className="nav-item"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo('about');
-              }}
-            >
-              Team
-            </a>
-          </nav>
-
-          {/* Top Right: Year Switcher */}
-          <div className="nav-year-switcher-right">
-            <span className="year-label">ARCHIVE</span>
-            <div className="year-toggle-group">
-              <button
-                type="button"
-                className={`year-btn ${selectedYear === '2026' ? 'active' : ''}`}
-                onClick={() => handleYearChange('2026')}
-                title="Switch to 2026 photos"
-              >
-                2026
-              </button>
-              <span className="year-divider">/</span>
-              <button
-                type="button"
-                className={`year-btn ${selectedYear === '2025' ? 'active' : ''}`}
-                onClick={() => handleYearChange('2025')}
-                title="Switch to 2025 photos"
-              >
-                2025
-              </button>
-            </div>
-          </div>
-        </header>
-
         {/* Floating Photo Cards Trail (Active ONLY in Hero, Max 3, Smaller, No Radius, No Labels) */}
         <div className="photo-trail-container" aria-hidden="true">
           {activeCards.map((card) => (

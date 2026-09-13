@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
@@ -169,7 +169,7 @@ export default function Events({ onNavigate }) {
   const handleNavClick = (e, target) => {
     e.preventDefault();
     if (onNavigate) onNavigate(target);
-    else window.location.hash = target === 'events' ? '#events' : '#';
+    else window.location.hash = target === 'events' ? '#events' : target === 'team' ? '#team' : '#';
   };
 
   const stats = [
@@ -285,46 +285,6 @@ export default function Events({ onNavigate }) {
         <div className="ev2-orb ev2-orb-2" />
         <div className="ev2-scanline" />
       </div>
-
-      {/* Navigation */}
-      <header className="ev2-nav">
-        <div className="ev2-nav-brand">
-          <a href="#home" onClick={(e) => handleNavClick(e, 'home')}>
-            CODESTARS
-          </a>
-        </div>
-        <nav className="ev2-nav-links">
-          <a href="#home" className="ev2-nl" onClick={(e) => handleNavClick(e, 'home')}>
-            Home
-          </a>
-          <a href="#events" className="ev2-nl active" onClick={(e) => handleNavClick(e, 'events')}>
-            Events
-          </a>
-          <a
-            href="https://codeuncode.djscodestars.in/"
-            className="ev2-nl"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Code UnCode
-          </a>
-          <a href="#home" className="ev2-logo-wrap" onClick={(e) => handleNavClick(e, 'home')} title="DJS CodeStars">
-            <img src={codestarsLogo} alt="DJS CodeStars Logo" className="ev2-logo-img" />
-          </a>
-          <a href="#home" className="ev2-nl" onClick={(e) => handleNavClick(e, 'home')}>
-            Resources
-          </a>
-          <a href="#home" className="ev2-nl" onClick={(e) => handleNavClick(e, 'home')}>
-            Team
-          </a>
-        </nav>
-        <div className="ev2-nav-right">
-          <button className="ev2-back-btn" onClick={(e) => handleNavClick(e, 'home')}>
-            <ArrowRight size={13} style={{ transform: 'rotate(180deg)' }} />
-            Back to Home
-          </button>
-        </div>
-      </header>
 
       {/* Hero Section */}
       <section className="ev2-hero">

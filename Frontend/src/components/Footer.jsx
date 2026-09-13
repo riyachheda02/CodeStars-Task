@@ -13,7 +13,7 @@ export default function Footer({ onNavigate }) {
     if (onNavigate) {
       onNavigate(target);
     } else {
-      window.location.hash = target === 'events' ? '#events' : '#';
+      window.location.hash = target === 'events' ? '#events' : target === 'team' ? '#team' : '#';
     }
   };
 
@@ -77,7 +77,7 @@ export default function Footer({ onNavigate }) {
               <li><a href="#hero" onClick={(e) => handleNavClick(e, 'home')}>Home</a></li>
               <li><a href="#events" onClick={(e) => handleNavClick(e, 'events')}>Events</a></li>
               <li><a href="#resources" onClick={(e) => handleNavClick(e, 'home')}>Resources</a></li>
-              <li><a href="#team" onClick={(e) => handleNavClick(e, 'home')}>Team</a></li>
+              <li><a href="#team" onClick={(e) => handleNavClick(e, 'team')}>Team</a></li>
               <li><a href="#gallery" onClick={(e) => handleNavClick(e, 'home')}>Gallery Archive</a></li>
               <li><a href="https://codeuncode.djscodestars.in/" target="_blank" rel="noreferrer">Code UnCode ↗</a></li>
             </ul>
