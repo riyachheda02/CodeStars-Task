@@ -89,7 +89,7 @@ export default function Footer({ onNavigate }) {
             <ul className="footer-social-list">
               <li>
                 <a
-                  href="https://www.instagram.com/djscodestars/"
+                  href="https://www.instagram.com/djsce_codestars/"
                   target="_blank"
                   rel="noreferrer"
                   className="footer-social-link"
@@ -115,7 +115,7 @@ export default function Footer({ onNavigate }) {
               </li>
               <li>
                 <a
-                  href="https://discord.gg/codestars"
+                  href="https://discord.com/"
                   target="_blank"
                   rel="noreferrer"
                   className="footer-social-link"
@@ -128,7 +128,7 @@ export default function Footer({ onNavigate }) {
               </li>
               <li>
                 <a
-                  href="https://youtube.com/@djscodestars"
+                  href="https://www.youtube.com/@djscodestars"
                   target="_blank"
                   rel="noreferrer"
                   className="footer-social-link"

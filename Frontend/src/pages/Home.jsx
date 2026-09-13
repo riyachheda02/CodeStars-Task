@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { photosByYear, heroPhotos } from '../constant/photos';
+import { photosByYear } from '../constant/photos';
 import codestarsLogo from '../assets/djs_codestarsLogo.jpeg';
+import ScatteredGallery from '../components/ScatteredGallery';
 import Footer from '../components/Footer';
 import './Home.css';
 
@@ -10,8 +11,6 @@ export default function Home({ onNavigate, selectedYear: propYear, onYearChange 
   const setSelectedYear = onYearChange || setInternalYear;
   const [activeCards, setActiveCards] = useState([]);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0, visible: false });
-  const [activeGalleryFilter, setActiveGalleryFilter] = useState('ALL');
-  const [selectedGalleryPhoto, setSelectedGalleryPhoto] = useState(null);
   const [expandedAnnouncements, setExpandedAnnouncements] = useState({});
 
   const heroRef = useRef(null);
@@ -237,11 +236,6 @@ We are organizing an Intro Session on 2nd October 2025 at 11:00 PM and Mock Cont
     },
   ];
 
-  const filteredGallery = heroPhotos.filter((p) => {
-    if (activeGalleryFilter === 'ALL') return true;
-    return p.year === activeGalleryFilter;
-  });
-
   return (
     <div className="landing-page-root">
       {/* ================= HERO SECTION ================= */}
@@ -391,61 +385,11 @@ We are organizing an Intro Session on 2nd October 2025 at 11:00 PM and Mock Cont
           </div>
         </section>
 
-        {/* 
-
-        {/* GALLERY SECTION */}
+        {/* GALLERY SECTION (INTERACTIVE SCATTERED CANVAS) */}
         <section id="gallery" className="content-section gallery-section">
           <div className="section-container">
-            <div className="section-header gallery-header">
-              <div>
-                <span className="section-eyebrow">ARCHIVES</span>
-                <h2 className="section-title">Moments & Highlights</h2>
-              </div>
-              <div className="filter-tabs">
-                {['ALL', '2026', '2025'].map((filter) => (
-                  <button
-                    key={filter}
-                    className={`filter-btn ${activeGalleryFilter === filter ? 'active' : ''}`}
-                    onClick={() => setActiveGalleryFilter(filter)}
-                  >
-                    {filter}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="gallery-grid">
-              {filteredGallery.map((photo) => (
-                <div
-                  key={photo.id}
-                  className="gallery-card"
-                  onClick={() => setSelectedGalleryPhoto(photo)}
-                >
-                  <div className="gallery-img-wrapper">
-                    <img src={photo.url} alt={photo.title} loading="lazy" />
-                    <div className="gallery-overlay">
-                      <span className="gallery-tag">{photo.year}</span>
-                      <h4 className="gallery-photo-title">{photo.title}</h4>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <ScatteredGallery />
           </div>
-
-          {/* Lightbox Modal */}
-          {selectedGalleryPhoto && (
-            <div className="lightbox-backdrop" onClick={() => setSelectedGalleryPhoto(null)}>
-              <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-                <button className="lightbox-close" onClick={() => setSelectedGalleryPhoto(null)}>✕</button>
-                <img src={selectedGalleryPhoto.url} alt={selectedGalleryPhoto.title} />
-                <div className="lightbox-info">
-                  <h3>{selectedGalleryPhoto.title}</h3>
-                  <span className="lightbox-year">Batch of {selectedGalleryPhoto.year}</span>
-                </div>
-              </div>
-            </div>
-          )}
         </section>
       </main>
 
