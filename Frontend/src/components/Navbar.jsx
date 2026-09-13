@@ -1,5 +1,5 @@
-import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import codestarsLogo from '../assets/djs_codestarsLogo.jpeg';
 import './Navbar.css';
 
@@ -9,8 +9,10 @@ export default function Navbar({
   selectedYear = '2026',
   onYearChange,
 }) {
+  const [menuOpen, setMenuOpen] = useState(false);
   const handleNavClick = (e, target) => {
     e.preventDefault();
+    setMenuOpen(false);
     if (onNavigate) {
       onNavigate(target);
     } else {
@@ -32,7 +34,17 @@ export default function Navbar({
       </div>
 
       {/* Center: Full Menu with Circular Logo */}
-      <nav className="app-nav-center" aria-label="Main Navigation">
+      <button
+        type="button"
+        className="app-nav-menu-toggle"
+        aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+        aria-expanded={menuOpen}
+        onClick={() => setMenuOpen((open) => !open)}
+      >
+        {menuOpen ? <X size={20} /> : <Menu size={21} />}
+      </button>
+
+      <nav className={`app-nav-center ${menuOpen ? 'is-open' : ''}`} aria-label="Main Navigation">
         <a
           href="#home"
           className={`app-nav-link ${currentRoute === 'home' ? 'active' : ''}`}

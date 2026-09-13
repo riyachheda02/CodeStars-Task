@@ -472,6 +472,30 @@
   .announcement-header-row { flex-direction: column-reverse; gap: 10px; }
 }
 
+@media (max-width: 480px) {
+  .hero-section { min-height: calc(100svh - 58px); padding: 16px; }
+  .hero-giant-heading { font-size: clamp(3.25rem, 18vw, 5.25rem); }
+  .content-section { padding: 58px 16px; }
+  .section-header { margin-bottom: 34px; }
+  .section-eyebrow { font-size: 9px; letter-spacing: 0.15em; }
+  .announcement-card { padding: 18px; }
+  .announcement-date-box { width: 64px; height: 64px; min-width: 64px; min-height: 64px; }
+  .about-text-card { padding: 24px 18px; border-radius: 12px; }
+  .about-lead { font-size: 16px; }
+  .stats-grid { gap: 12px; }
+  .stat-card { padding: 20px 15px; border-radius: 12px; }
+  .stat-number { font-size: 30px; }
+  .experience-item { padding: 20px 16px; }
+  .gallery-header { align-items: flex-start; }
+  .filter-tabs { max-width: 100%; overflow-x: auto; }
+  .lightbox-info { padding: 14px 16px; gap: 10px; align-items: flex-start; flex-direction: column; }
+  .footer-top-row { padding: 36px 18px 30px; gap: 30px; }
+  .footer-brand-header { gap: 12px; }
+  .footer-brand-title-main { font-size: 19px; }
+  .footer-links-grid { gap: 24px; }
+  .footer-bottom-strip { padding: 14px 16px 18px; }
+}
+
 /* =========================================================
    ABOUT SECTION
    ========================================================= */

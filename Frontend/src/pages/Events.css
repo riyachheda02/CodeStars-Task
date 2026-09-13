@@ -962,3 +962,22 @@
   color: #080808;
   transform: translateX(3px);
 }
+
+@media (max-width: 480px) {
+  .ev2-hero { padding: 48px 16px 34px; }
+  .ev2-eyebrow-pill { font-size: 9px; letter-spacing: 0.13em; padding: 5px 10px; }
+  .ev2-hero-title { font-size: clamp(2.8rem, 15vw, 4.2rem); margin-bottom: 16px; }
+  .ev2-hero-sub { font-size: 14px; }
+  .ev2-ticker-wrap { margin-top: 30px; }
+  .ev2-upcoming, .ev2-previous { padding-block: 56px; }
+  .ev2-section-head { margin-bottom: 28px; }
+  .ev2-section-eyebrow { font-size: 9px; letter-spacing: 0.14em; }
+  .ev2-fc-badge-row { align-items: flex-start; margin-bottom: 20px; }
+  .ev2-fc-img-wrapper { height: 210px; }
+  .ev2-fc-title { font-size: clamp(1.9rem, 9vw, 2.5rem); }
+  .ev2-fc-tags { gap: 6px; }
+  .ev2-fc-tag { font-size: 10px; }
+  .ev2-register-btn { width: 100%; justify-content: center; }
+  .ev2-prev-body { padding: 16px 18px 8px; }
+  .ev2-prev-footer { padding: 14px 18px 18px; align-items: flex-start; }
+}

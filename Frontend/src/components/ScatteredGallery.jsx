@@ -302,8 +302,8 @@ export default function ScatteredGallery() {
                 key={photo.id}
                 className={`scattered-card ${isMatch ? 'card-active' : 'card-dimmed'}`}
                 style={{
-                  transform: `translate(calc(${photo.x}px - 50%), calc(${photo.y}px - 50%)) rotate(${photo.rot}deg)`,
-                  width: `${photo.width}px`,
+                  transform: `translate(calc(${photo.x}px * var(--scatter-scale, 1) - 50%), calc(${photo.y}px * var(--scatter-scale, 1) - 50%)) rotate(${photo.rot}deg)`,
+                  width: `calc(${photo.width}px * var(--card-width-scale, 1))`,
                 }}
                 onClick={(e) => isMatch && handleCardClick(photo, e)}
               >

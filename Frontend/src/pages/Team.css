@@ -672,3 +672,17 @@
 .poster-linkedin-link:hover {
   transform: scale(1.2);
 }
+
+@media (max-width: 480px) {
+  .team-poster-hero { padding: 48px 16px 32px; }
+  .team-eyebrow-pill { font-size: 9px; letter-spacing: 0.14em; padding: 5px 10px; }
+  .team-poster-title { font-size: clamp(2.35rem, 13vw, 3.4rem); gap: 8px; }
+  .team-poster-subtitle { font-size: 14px; }
+  .team-year-tab { padding: 7px 14px; }
+  .team-poster-main { padding-bottom: 64px; }
+  .team-poster-container { padding: 0 16px; gap: 34px; }
+  .team-tier-badge-row { gap: 10px; margin-bottom: 16px; }
+  .team-tier-eyebrow { font-size: 10px; letter-spacing: 0.13em; }
+  .poster-member-card { padding: 24px 18px 22px; }
+  .poster-avatar-backdrop { width: 112px; height: 112px; }
+}

@@ -605,3 +605,28 @@
   .res-grid-container { padding: 0 16px; }
   .res-cta-inner { padding: 36px 24px; }
 }
+
+@media (max-width: 480px) {
+  .res-hero { padding-top: 46px; }
+  .res-eyebrow-pill { font-size: 9px; letter-spacing: 0.13em; padding: 5px 10px; }
+  .res-hero-title { font-size: clamp(2.15rem, 11vw, 3rem); }
+  .res-hero-inner { padding-bottom: 34px; }
+  .res-ticker-wrap { margin-top: 28px; }
+  .res-search-input { font-size: 16px; padding-block: 12px; }
+  .res-category-wrap {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 2px 1px 8px;
+    scrollbar-width: none;
+  }
+  .res-category-wrap::-webkit-scrollbar { display: none; }
+  .res-cat-pill { flex: 0 0 auto; padding: 7px 12px; font-size: 10.5px; }
+  .res-cards-grid { gap: 16px; }
+  .res-card-body { padding: 18px; }
+  .res-card-footer { gap: 10px; }
+  .res-cat-badge { max-width: 65%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .res-cta-section { padding: 0 16px 64px; }
+  .res-cta-inner { border-radius: 16px; padding: 30px 18px; }
+  .res-cta-btn { width: 100%; justify-content: center; padding-inline: 14px; }
+}

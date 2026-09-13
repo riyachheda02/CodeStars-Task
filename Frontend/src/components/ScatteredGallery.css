@@ -8,6 +8,9 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  --scatter-scale: 1;
+  --card-width-scale: 1;
+  --canvas-height: 740px;
 }
 
 /* Topbar with Eyebrow and Filter Tabs */
@@ -75,13 +78,14 @@
 .scattered-viewport {
   position: relative;
   width: 100%;
-  height: 740px;
+  height: var(--canvas-height, 740px);
   background-color: #0c0c10;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
   user-select: none;
   cursor: grab;
+  touch-action: none;
   box-shadow: inset 0 2px 24px rgba(0, 0, 0, 0.8), 0 20px 48px rgba(0, 0, 0, 0.6);
 }
 
@@ -555,19 +559,71 @@
   white-space: nowrap;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .scattered-viewport {
-    height: 600px;
+/* =========================================================
+   COMPREHENSIVE RESPONSIVENESS FOR ALL SCREEN SIZES
+   ========================================================= */
+
+/* Laptops & Small Desktops (1024px to 1279px) */
+@media (max-width: 1279px) {
+  .scattered-gallery-wrapper {
+    --scatter-scale: 0.85;
+    --card-width-scale: 0.94;
+    --canvas-height: 680px;
+  }
+}
+
+/* Tablets (768px to 1023px) */
+@media (max-width: 1023px) {
+  .scattered-gallery-wrapper {
+    --scatter-scale: 0.72;
+    --card-width-scale: 0.88;
+    --canvas-height: 620px;
+  }
+
+  .topbar-meta .section-title {
+    font-size: 28px;
   }
 
   .hub-title {
-    font-size: 42px;
+    font-size: 46px;
   }
 
   .hub-subtitle {
-    font-size: 12px;
-    max-width: 280px;
+    font-size: 12.5px;
+    max-width: 290px;
+  }
+}
+
+/* Large Mobile & Small Tablets (480px to 767px) */
+@media (max-width: 767px) {
+  .scattered-gallery-wrapper {
+    --scatter-scale: 0.58;
+    --card-width-scale: 0.82;
+    --canvas-height: 560px;
+    gap: 18px;
+  }
+
+  .topbar-meta .section-title {
+    font-size: 24px;
+  }
+
+  .hub-title {
+    font-size: 38px;
+  }
+
+  .hub-subtitle {
+    font-size: 11.5px;
+    max-width: 240px;
+    margin-bottom: 12px;
+  }
+
+  .canvas-center-hub {
+    width: 280px;
+  }
+
+  .hub-drag-pill {
+    font-size: 9.5px;
+    padding: 5px 12px;
   }
 
   .canvas-controls-dock {
@@ -583,10 +639,149 @@
   .canvas-hint-pill {
     bottom: 14px;
     left: 14px;
-    padding: 6px 10px;
+    padding: 6px 12px;
+    max-width: calc(100% - 150px);
   }
 
   .hint-text {
-    font-size: 10px;
+    font-size: 9.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Lightbox on Tablet & Mobile */
+  .lightbox-backdrop {
+    padding: 14px;
+  }
+
+  .lightbox-content {
+    border-radius: 14px;
+  }
+
+  .lightbox-content img {
+    max-height: 54vh;
+  }
+
+  .lightbox-info {
+    padding: 14px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .lightbox-info h3 {
+    font-size: 17px;
+  }
+
+  .lightbox-desc {
+    font-size: 11.5px;
+  }
+
+  .lightbox-year {
+    align-self: flex-start;
+    padding: 4px 10px;
+    font-size: 11.5px;
+  }
+}
+
+/* Small & Standard Mobile Phones (< 480px, e.g. iPhone, Pixel, Galaxy) */
+@media (max-width: 479px) {
+  .scattered-gallery-wrapper {
+    --scatter-scale: 0.46;
+    --card-width-scale: 0.74;
+    --canvas-height: 490px;
+    gap: 16px;
+  }
+
+  .scattered-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .topbar-meta .section-title {
+    font-size: 22px;
+  }
+
+  .gallery-filter-tabs {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 4px;
+  }
+
+  .gallery-filter-pill {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    font-size: 11px;
+  }
+
+  .scattered-viewport {
+    border-radius: 16px;
+  }
+
+  .hub-title {
+    font-size: 32px;
+  }
+
+  .hub-subtitle {
+    font-size: 11px;
+    max-width: 210px;
+    line-height: 1.45;
+  }
+
+  .canvas-center-hub {
+    width: 240px;
+  }
+
+  .hub-pushpin svg {
+    width: 22px;
+    height: 28px;
+  }
+
+  .hub-secondary-pin {
+    display: none;
+  }
+
+  .hub-drag-pill {
+    font-size: 9px;
+    padding: 4px 10px;
+    gap: 6px;
+  }
+
+  /* Hide bottom hint on compact phones to prevent any UI overlapping */
+  .canvas-hint-pill {
+    display: none;
+  }
+
+  .canvas-controls-dock {
+    bottom: 10px;
+    right: 10px;
+    padding: 3px 6px;
+    gap: 4px;
+  }
+
+  .dock-btn {
+    padding: 4px 6px;
+  }
+
+  .recenter-btn .dock-icon {
+    font-size: 14px;
+  }
+
+  .zoom-btn {
+    width: 26px;
+    height: 26px;
+    font-size: 14px;
+  }
+
+  .zoom-indicator {
+    min-width: 28px;
+    font-size: 9.5px;
   }
 }

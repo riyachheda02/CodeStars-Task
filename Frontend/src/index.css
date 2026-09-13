@@ -63,6 +63,28 @@ button {
   cursor: pointer;
 }
 
+img, svg {
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+@media (max-width: 480px) {
+  html { font-size: 15px; }
+  button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
